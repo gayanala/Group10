@@ -194,7 +194,8 @@ img {
     height: 100vh;
     background-color: #fff;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
   }
 
@@ -202,6 +203,25 @@ img {
       padding-top: 10vh;
       width: 80%;
       height: 60vh;
+    }
+
+    #newSearch {
+      padding: 1rem 2rem;
+      border: 2px solid #EE8034;
+
+      -webkit-transition: background-color ease 0.1s;
+      -moz-transition: background-color ease 0.1s;
+      -o-transition: background-color ease 0.1s;
+      transition: background-color ease 0.1s;
+    }
+
+    #newSearch:hover {
+      color: #fff;
+      background-color: #EE8034;
+    }
+
+    #outputDiv {
+      color: #000;
     }
 
 /*=====IMAGES======*/

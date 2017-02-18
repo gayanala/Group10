@@ -37,10 +37,10 @@
     <!-- End of W3 schools smooth scrolling -->
   </head>
   <body>
-    <section class="landingSection">
+    <section class="landingSection" id="theLand">
       <div class="menubar">
         <div class="logo" id="smallLogo">
-          <a href="index.html"> <img src="imgs/logo_Orange.svg" alt="logo"> </a>
+          <a href="#theLand"> <img src="imgs/logo_Orange.svg" alt="logo"> </a>
         </div>
         <ul class="links">
           <li><a href="#"> About Us </a></li>
@@ -66,32 +66,33 @@
     <section class="theGut">
       <div class="theGutContent" id="theGut">
         <div class="search">
-          <input type="text" id="searchBox" value="Search by title..." onclick="clearText();" onfocusout="putSearchBack();" onkeyup="updateShows();">
+          <input type="text" id="searchBox" value="Search by title..." onclick="clearText();" onfocusout="putSearchBack();" onkeyup="updateShows(false);">
           <!--<button type="button"> Search </button>-->
           <!-- Lost, HIMYM, Heroes, PB, The 100, Fringe, Friends, TWD, Sherlock-->
           <div class="tvShows" id="shows">
-            <a href="" class="showImage" id="Lost"></a>
+            <a href="#theGraph" onclick="updateGraph(this.id);" class="showImage" id="Lost"></a>
 
-            <a href="" class="showImage" id="How_I_Met_Your_Mother"></a>
+            <a href="#theGraph" onclick="updateGraph(this.id);" class="showImage" id="How_I_Met_Your_Mother"></a>
 
-            <a href="" class="showImage" id="Heroes"></a>
+            <a href="#theGraph" onclick="updateGraph(this.id);" class="showImage" id="Heroes"></a>
 
-            <a href="" class="showImage" id="Prison_Break"></a>
+            <a href="#theGraph" onclick="updateGraph(this.id);" class="showImage" id="Prison_Break"></a>
 
-            <a href="" class="showImage" id="The_100"></a>
+            <a href="#theGraph" onclick="updateGraph(this.id);" class="showImage" id="The_100"></a>
 
-            <a href="" class="showImage" id="Fringe"></a>
+            <a href="#theGraph" onclick="updateGraph(this.id);" class="showImage" id="Fringe"></a>
 
-            <a href="" class="showImage" id="Scrubs"></a>
+            <a href="#theGraph"  onclick="updateGraph(this.id);"class="showImage" id="Scrubs"></a>
 
-            <a href="" class="showImage" id ="The_Walking_Dead"></a>
+            <a href="#theGraph" onclick="updateGraph(this.id);" class="showImage" id ="The_Walking_Dead"></a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="graph">
-      <embed src="https://plot.ly/~cdr23859/54.embed" type="">
+    <section class="graph" id="theGraph">
+      <embed src="" id="graphEmbed">
+      <a href="#theGut" id="newSearch">New Search</a>
     </section>
 
 
