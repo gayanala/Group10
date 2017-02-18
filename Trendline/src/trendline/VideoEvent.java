@@ -39,7 +39,7 @@ public class VideoEvent implements Comparable {
    
     @Override
      public String toString(){
-        String print = this.NumSeason+", "+this.NumEpisode+", ";
+        String print = this.NumSeason+"."+this.NumEpisode+", ";
         if(this.Name.equals("")){
             print += "Episode, ";
         }
