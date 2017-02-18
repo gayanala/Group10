@@ -5,6 +5,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
     <title>Pro-viewer</title>
     <meta charset="utf-8">
+    <script type="text/javascript" src="js/main.js"> </script>
     <!-- Start of W3 schools smooth scrolling -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
@@ -65,10 +66,10 @@
     <section class="theGut">
       <div class="theGutContent" id="theGut">
         <div class="search">
-          <input type="text" value="Enter title here...">
+          <input type="text" id="searchBox" value="Search by title..." onclick="clearText();" onfocusout="putSearchBack();" onkeyup="updateShows();">
           <!--<button type="button"> Search </button>-->
           <!-- Lost, HIMYM, Heroes, PB, The 100, Fringe, Friends, TWD, Sherlock-->
-          <div class="tvShows">
+          <div class="tvShows" id="shows">
             <a href="" class="showImage" id="Lost"></a>
 
             <a href="" class="showImage" id="How_I_Met_Your_Mother"></a>
@@ -81,7 +82,7 @@
 
             <a href="" class="showImage" id="Fringe"></a>
 
-            <a href="" class="showImage" id="Friends"></a>
+            <a href="" class="showImage" id="Scrubs"></a>
 
             <a href="" class="showImage" id ="The_Walking_Dead"></a>
           </div>
