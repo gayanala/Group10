@@ -18,7 +18,7 @@ public class Trendline {
     private static final int yieldAfterNumNegative = 5;
     private static final int avoidAfterNumNegative = 10;
     private static String Name;
-    private static String FileName = "Fringe";
+    private static String FileName = "The Walking Dead";
  
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
         File file = new File(Trendline.FileName+".txt");
