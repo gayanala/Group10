@@ -7,7 +7,9 @@ import java.util.Scanner;
 
 
 /**
- * Class which takes a file as input and produces useful measurements of popularity, expectations, and overall satisfaction
+ * Class which takes a file as input and produces useful measurements of 
+ * popularity, expectations, and overall satisfaction as well as provide
+ * warnings for unpopular or unsatisfying sections of VideoEvents
  * @author Group10
  */
 public class Trendline {
@@ -15,10 +17,9 @@ public class Trendline {
     private static ArrayList<Double> expectationsChange;
     private static final int yieldAfterNumNegative = 5;
     private static String Name;
-    private static String FileName = "How I met your mother";
+    private static String FileName = "Lost";
  
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-        
         File file = new File(Trendline.FileName+".csv");
         PrintWriter writer = new PrintWriter(Trendline.FileName+"WithBonus.txt", "UTF-8");
         Trendline ShowTrend = new Trendline(file);
@@ -45,19 +46,16 @@ public class Trendline {
         int order = 0;
         while (input.hasNextLine()){
             order ++;
-            String[] line = input.nextLine().split("\t");
             
+            String[] line = input.nextLine().split("\t");
             String NumSeason = line[0];
             String NumEpisode = line[1];
-            
             Trendline.Name = line[2];
-            
             String episodeName = line[3];
             String Rank = line[4];
             String NumVotes = line[5];
  
             VideoEvent show = new VideoEvent(order, NumSeason, NumEpisode, episodeName, Rank, NumVotes);
-            
             Trendline.streamingVideo.add(show);
         }
         for(int i = 0; i<Trendline.streamingVideo.size(); i++){
@@ -97,23 +95,22 @@ public class Trendline {
      */
     public static double getRunningAverageVoting(int ShowIndex){
        double TotalVotes = 0.0;
-
        for(int i = 0; i<ShowIndex; i++){
            VideoEvent show = Trendline.streamingVideo.get(i);  
            TotalVotes += show.getNumVotes();
        }
-
-       double rav = TotalVotes/(1.00*ShowIndex);
-       return rav;  
+       return TotalVotes/(1.00*ShowIndex);  
     }
-    
+    /**
+     * Produces a warnings if expectations are negative for a set threshold 
+     * @return warnings in the form of a String
+     */
     public static String getYield(){
         int NumNegativeExpectations = 0;
         int index = 0;
         String yieldInfo = "#";
         VideoEvent yield = null;
         while(index<Trendline.expectationsChange.size()){
-            System.out.println("The index is: "+index+ " and the number of negatives are: "+NumNegativeExpectations);
             if(Trendline.expectationsChange.get(index)<0){
                 NumNegativeExpectations++;
             }
@@ -124,11 +121,9 @@ public class Trendline {
             if(NumNegativeExpectations==Trendline.yieldAfterNumNegative){
                 yield = Trendline.streamingVideo.get(index-Trendline.yieldAfterNumNegative+1);
                 yieldInfo += yield.getIdentifier() + " "+ yield.getName()+"\t";
-                System.out.println("So I will add a yield");
             }
             index++;
         }
-        
         return yieldInfo;
     }
     
