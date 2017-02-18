@@ -11,6 +11,16 @@ ia = imdb.IMDb()
 
 series = ["Lost", "The 100", "Dexter", "24", "Smallville", "Veronica Mars", "Prison Break", "Heroes", "Homeland",
           "Nip/Tuck", "True Blood"]
+
+def get_row(season_num,episode_num, episode):
+    episode = ia.get_movie(episode.movieID)
+    row = [season_num, episode_num]
+    for key in ["smart canonical series title", "smart canonical episode title", "rating", "votes", "year"]:
+        try:
+            row.append(episode[key])
+        except KeyError:
+            row.append("")
+    return row
 with open(args.show_title+".csv","w") as outfile:
     writer = csv.writer(outfile)
 
@@ -20,18 +30,19 @@ with open(args.show_title+".csv","w") as outfile:
     ia.update(show, "episodes")
     for season_num, season in show['episodes'].items():
         for episode_num,episode in season.items():
-            episode = ia.get_movie(episode.movieID)
-            row = [season_num,episode_num]
-            for key in ["smart canonical series title", "smart canonical episode title", "rating", "votes", "year"]:
-                try:
-                    row.append(episode[key])
-                except KeyError:
-                    row.append("")
+
+            try:
+                row = get_row(season_num,episode_num,episode)
+            except imdb.errors.IMDbDataAccessError:
+                time.sleep(120)
+                row = get_row(season_num, episode_num, episode)
             try:
                 writer.writerow(row)
             except UnicodeEncodeError:
                 print "unicode error"
             time.sleep(5)
+
+
 
 
 
