@@ -13,17 +13,22 @@ series = ["Lost", "The 100", "Dexter", "24", "Smallville", "Veronica Mars", "Pri
           "Nip/Tuck", "True Blood"]
 
 def get_row(season_num,episode_num, episode):
+
     episode = ia.get_movie(episode.movieID)
+
     row = [season_num, episode_num]
-    for key in ["smart canonical series title", "smart canonical episode title", "rating", "votes", "year"]:
+
+    for key in ["smart canonical series title", "smart canonical episode title", "rating", "votes", "year", "director",
+                "writer", "runtimes"]:
         try:
             row.append(episode[key])
         except KeyError:
             row.append("")
     return row
-with open(args.show_title+".csv","w") as outfile:
-    writer = csv.writer(outfile)
 
+with open(args.show_title+".csv","w") as outfile:
+
+    writer = csv.writer(outfile, delimiter="\t")
     results = ia.search_movie(args.show_title)
     movie_id = results[0].movieID
     show = ia.get_movie(movie_id)
@@ -40,7 +45,7 @@ with open(args.show_title+".csv","w") as outfile:
                 writer.writerow(row)
             except UnicodeEncodeError:
                 print "unicode error"
-            time.sleep(5)
+            time.sleep(1)
 
 
 
