@@ -16,18 +16,27 @@ public class Trendline {
     private static ArrayList<VideoEvent> streamingVideo;
     private static ArrayList<Double> expectationsChange;
     private static final int yieldAfterNumNegative = 5;
+    private static final int avoidAfterNumNegative = 10;
     private static String Name;
-    private static String FileName = "Lost";
+    private static String FileName = "Fringe";
  
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-        File file = new File(Trendline.FileName+".csv");
+        File file = new File(Trendline.FileName+".txt");
         PrintWriter writer = new PrintWriter(Trendline.FileName+"WithBonus.txt", "UTF-8");
         Trendline ShowTrend = new Trendline(file);
-        writer.write(Trendline.getYield()+"\n");
+        ArrayList<String> Locations = Trendline.getYield();
+        //writer.write(Locations+"\n");
         
+        ArrayList<Integer> badValues = Trendline.getBadValue(Locations);
         for(int i = 0; i<Trendline.streamingVideo.size(); i++){
             VideoEvent show = Trendline.streamingVideo.get(i);
-            String print = show.toString() + Trendline.expectationsChange.get(i)+"\t" + show.getNumVotes();
+            String print = show.toString() + Trendline.expectationsChange.get(i)+"\t" + show.getNumVotes()+"\t";
+            if(badValues.contains(i+1)){
+                print+=1+"\t";
+            }
+            else{
+                print+=0+"\t";
+            }
             Trendline.getRunningAverageVoting(i);
             writer.write(print+"\n");
         }
@@ -105,26 +114,55 @@ public class Trendline {
      * Produces a warnings if expectations are negative for a set threshold 
      * @return warnings in the form of a String
      */
-    public static String getYield(){
+    public static ArrayList<String> getYield(){
         int NumNegativeExpectations = 0;
         int index = 0;
-        String yieldInfo = "#";
-        VideoEvent yield = null;
+        boolean endpoint = false;
+        ArrayList<String> yieldInfo = new ArrayList();
+        String StartNStop = "";
         while(index<Trendline.expectationsChange.size()){
+            //System.out.println("EPISODE NUM IS:"+(index+1)+" and NumNegative is "+NumNegativeExpectations+" and my expecatation is: "+Trendline.expectationsChange.get(index));
             if(Trendline.expectationsChange.get(index)<0){
                 NumNegativeExpectations++;
+                if(NumNegativeExpectations == Trendline.yieldAfterNumNegative){
+                    endpoint = true;
+                    StartNStop += index-Trendline.yieldAfterNumNegative+2+"\t";
+                }
+                else if(NumNegativeExpectations == Trendline.avoidAfterNumNegative){
+                    StartNStop += Trendline.expectationsChange.size();
+                    yieldInfo.add(StartNStop);
+                    return yieldInfo;
+                }
             }
             else{
+                if(endpoint){
+                    StartNStop += (index);
+                    yieldInfo.add(StartNStop);
+                    StartNStop = "";
+                    endpoint = false;
+                }
                 NumNegativeExpectations = 0;
-                yield = null;
-            }
-            if(NumNegativeExpectations==Trendline.yieldAfterNumNegative){
-                yield = Trendline.streamingVideo.get(index-Trendline.yieldAfterNumNegative+1);
-                yieldInfo += yield.getIdentifier() + " "+ yield.getName()+"\t";
             }
             index++;
         }
+        //System.out.println(yieldInfo);
         return yieldInfo;
     }
+    
+    public static ArrayList<Integer> getBadValue(ArrayList<String> Locations){
+        
+        ArrayList<Integer> BadValues = new ArrayList();
+        for(String StartNStop: Locations){
+           String locations[] = StartNStop.split("\t");
+           int Start = Integer.valueOf(locations[0]);
+           int Stop = Integer.valueOf(locations[1]);
+           while(Start<=Stop){
+               BadValues.add(Start);
+               Start++;
+            }
+        }
+        return BadValues;
+    }
+    
     
 }
