@@ -4,49 +4,54 @@
  * @author Group10
  */
 public class VideoEvent implements Comparable {
-    private String NumSeason;
-    private String NumEpisode;
+    private int NumAppeared;
+    private String Identifier;
     private String Name;
     private String Rank;
-    private String numVotes;
+    private String NumVotes;
     private String Year;
     
-    public VideoEvent(String SeasonNumber, String EpisodeNumber, String Name, String Rank, String Votes, String Year){
-        this.NumSeason = SeasonNumber;
-        this.NumEpisode = EpisodeNumber;
+    public VideoEvent(int ApperanceOrder, String SeasonNumber, String EpisodeNumber, String Name, String Rank, String Votes, String Year){
+        this.NumAppeared = ApperanceOrder;
+        this.Identifier = "S"+SeasonNumber+":E"+EpisodeNumber;
         this.Name = Name;
         this.Rank = Rank;
-        this.numVotes = Votes;
+        this.NumVotes = Votes;
         this.Year = Year;
+        
     }
     
-    public String getNumSeason(){
-        return new String(this.NumSeason);
+    public String getIdentifier(){
+        return new String(this.Identifier);
     }
     
-    public String getNumEpisode(){
-        return new String(this.NumEpisode);
+    public double getRank(){
+        return Double.parseDouble(this.Rank);
+    }
+    
+    public double getNumVotes(){
+        return Integer.valueOf(this.NumVotes)/1000.0;
     }
     
     public String getWatchedIndicator(){
         //possible to change based on Stastical evidence of correlation 
         //(for now our only indicator is Viewer Ranking and Number of Votes)
-        if(this.Rank.equals("")||this.numVotes.equals("")){
+        if(this.Rank.equals("")||this.NumVotes.equals("")){
             return "No given data";
         }
-        return String.valueOf(Math.round(Double.parseDouble(this.Rank)*(1.0*Integer.valueOf(this.numVotes))));      
+        return ""+(this.getRank()*this.getNumVotes())/10000.0;
     }
    
     @Override
      public String toString(){
-        String print = this.NumSeason+"."+this.NumEpisode+", ";
+        String print = this.NumAppeared+", ";
         if(this.Name.equals("")){
-            print += "Episode, ";
+            print += this.Identifier+"No Name Given, ";
         }
         else{
-            print += this.Name+", ";
+            print += "'"+this.Identifier+" "+this.Name+"'"+", ";
         }
-        print += this.Rank+", "+this.getWatchedIndicator();
+        print += this.Rank+", ";
         
         return print;
     }
@@ -54,9 +59,6 @@ public class VideoEvent implements Comparable {
     @Override
     public int compareTo(Object o) {
         VideoEvent other = (VideoEvent)o;
-        if(this.NumSeason.equals(other.getNumSeason())){
-            return Integer.valueOf(this.NumEpisode)-Integer.valueOf(other.getNumEpisode());
-        }
-        return Integer.valueOf(this.NumSeason)-Integer.valueOf(other.getNumSeason());
+        return (this.Identifier.compareTo(other.getIdentifier()));
     }
 }
