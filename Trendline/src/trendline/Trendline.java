@@ -20,17 +20,19 @@ public class Trendline {
     
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
         //************file name needs edit
-        File file = new File("file.txt");
-        PrintWriter writer = new PrintWriter("fileWithBonus.txt", "UTF-8");
+        File file = new File("What.csv");
+        PrintWriter writer = new PrintWriter("LostWithBonus.txt", "UTF-8");
         double lowestPopularity = 0.0;
         double highestPopularity = 0.0;
         
         Trendline ShowTrend = new Trendline(file);
-        writer.write(Trendline.Name);
+        writer.write(Trendline.Name+"\n");
         for(VideoEvent show: Trendline.streamingVideo){
-            writer.write(show.toString());
+            System.out.println(show.toString());
+            String print = show.toString();
+            writer.write(print+"\n");
         }
-        
+        writer.close();
         
     }
     
@@ -40,8 +42,8 @@ public class Trendline {
         Scanner input = new Scanner(FileName);
         Trendline.Name = "";
         while (input.hasNextLine()){
-            String[] line = input.nextLine().split(",");
-            System.out.println(Arrays.toString(line));
+            String[] line = input.nextLine().split("\t");
+            //System.out.println(Arrays.toString(line));
             //Lines of data must be ordered Season#, Episode#, Show Name, Episode Name, Viewer Rank, Viewer Votes, Year
             String NumSeason = line[0];
             String NumEpisode = line[1];
@@ -51,11 +53,13 @@ public class Trendline {
             String Rank = line[4];
             String NumVotes = line[5];
             String Year = line[6];
+            //System.out.println(NumSeason+" "+ NumEpisode+" "+ episodeName+" "+ Rank+" "+ NumVotes+" "+ Year);
             //********************will update when more comes
             VideoEvent show = new VideoEvent(NumSeason, NumEpisode, episodeName, Rank, NumVotes, Year);
             
             Trendline.streamingVideo.add(show);
         }
+        input.close();
     }
     
     

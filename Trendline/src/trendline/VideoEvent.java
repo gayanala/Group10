@@ -36,20 +36,19 @@ public class VideoEvent implements Comparable {
         if(this.Rank.equals("")||this.numVotes.equals("")){
             return "No given data";
         }
-        return ""+Double.parseDouble(this.Rank)*(1.0*Integer.valueOf(this.numVotes));      
+        return String.valueOf(Math.round(Double.parseDouble(this.Rank)*(1.0*Integer.valueOf(this.numVotes))));      
     }
    
+    @Override
      public String toString(){
-        String print = "";
-        
-        print += this.NumSeason+", ";
+        String print = this.NumSeason+", "+this.NumEpisode+", ";
         if(this.Name.equals("")){
             print += "Episode, ";
         }
         else{
             print += this.Name+", ";
         }
-        print += this.Rank+", "+this.getWatchedIndicator();
+        print += this.Rank+", "+this.getWatchedIndicator()+" what the fuck";
         
         return print;
     }
