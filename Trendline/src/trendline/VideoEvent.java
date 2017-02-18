@@ -5,50 +5,61 @@
  *
  * @author colinrichards
  */
-public class VideoEvent {
-    private String Identifier;
-    private double ViewerRank;
-    private int NumVotes;
-
-    //private String AirDate;
-    private double WatchedIndicator;
+public class VideoEvent implements Comparable {
+    private String NumSeason;
+    private String NumEpisode;
+    private String Name;
+    private String Rank;
+    private String numVotes;
+    private String Year;
     
-    public VideoEvent(String name, double score, int votes){
-        this.Identifier = name;
-        this.ViewerRank = score;
-        this.NumVotes = votes;
-        this.WatchedIndicator = 0.0;
+    public VideoEvent(String SeasonNumber, String EpisodeNumber, String Name, String Rank, String Votes, String Year){
+        this.NumSeason = SeasonNumber;
+        this.NumEpisode = EpisodeNumber;
+        this.Name = Name;
+        this.Rank = Rank;
+        this.numVotes = Votes;
+        this.Year = Year;
     }
     
-    public String getIdentifier(){
-        return new String(this.Identifier);
+    public String getNumSeason(){
+        return new String(this.NumSeason);
     }
     
-    public double getViewerRank(){
-        return this.ViewerRank;
+    public String getNumEpisode(){
+        return new String(this.NumEpisode);
     }
     
-    public int getNumVotes(){
-        return this.NumVotes;
-    }
-    /*
-    public String getAirDate(){
-        return new String(this.AirDate);
-    }
-    */
-    
-   public double getWatchedIndicator(){
+    public String getWatchedIndicator(){
         //possible to change based on Stastical evidence of correlation 
         //(for now our only indicator is Viewer Ranking and Number of Votes)
-        this.WatchedIndicator = (1.0*this.NumVotes)*this.ViewerRank;
-        return this.WatchedIndicator;
+        if(this.Rank.equals("")||this.numVotes.equals("")){
+            return "No given data";
+        }
+        return ""+Double.parseDouble(this.Rank)*(1.0*Integer.valueOf(this.numVotes));      
     }
    
      public String toString(){
         String print = "";
         
-        print+=this.getIdentifier()+" "+this.getViewerRank()+" "+this.getWatchedIndicator();
+        print += this.NumSeason+", ";
+        if(this.Name.equals("")){
+            print += "Episode, ";
+        }
+        else{
+            print += this.Name+", ";
+        }
+        print += this.Rank+", "+this.getWatchedIndicator();
         
         return print;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        VideoEvent other = (VideoEvent)o;
+        if(this.NumSeason.equals(other.getNumSeason())){
+            return this.NumEpisode.compareTo(other.getNumEpisode());
+        }
+        return this.NumSeason.compareTo(other.getNumSeason());
     }
 }

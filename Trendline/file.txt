@@ -1,0 +1,1 @@
+1,1,Lost,Pilot: Part 1,	9.4,		2004,1,	2,	Lost,	Pilot: Part 2,	9.3,		2004,1,	3,	Lost,	Tabula Rasa,	8.7,		2004,1,	4,	Lost,	Walkabout,	9.2,		2004,1,	5,	Lost,	White Rabbit,	8.6,		2004,1,	6,	Lost,	House of the Rising Sun,	8.4,		2004,1,	7,	Lost,	Moth The,	8.6,		2004,
