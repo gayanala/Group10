@@ -1,9 +1,7 @@
 
-
-
 /**
  *
- * @author colinrichards
+ * @author Group10
  */
 public class VideoEvent implements Comparable {
     private String NumSeason;
@@ -48,7 +46,7 @@ public class VideoEvent implements Comparable {
         else{
             print += this.Name+", ";
         }
-        print += this.Rank+", "+this.getWatchedIndicator()+" what the fuck";
+        print += this.Rank+", "+this.getWatchedIndicator();
         
         return print;
     }
@@ -57,8 +55,8 @@ public class VideoEvent implements Comparable {
     public int compareTo(Object o) {
         VideoEvent other = (VideoEvent)o;
         if(this.NumSeason.equals(other.getNumSeason())){
-            return this.NumEpisode.compareTo(other.getNumEpisode());
+            return Integer.valueOf(this.NumEpisode)-Integer.valueOf(other.getNumEpisode());
         }
-        return this.NumSeason.compareTo(other.getNumSeason());
+        return Integer.valueOf(this.NumSeason)-Integer.valueOf(other.getNumSeason());
     }
 }
