@@ -224,6 +224,56 @@ img {
       color: #000;
     }
 
+.profiles {
+  width: 80%;
+  margin: 0 auto;
+}
+
+  .profile {
+    padding: 3rem 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    border-bottom: 1px solid #000;
+  }
+
+  .profile:last-child {
+    border-bottom: none;
+  }
+
+  .profile > img {
+    width: 45%;
+  }
+
+  .profileText {
+    margin: 0 auto;
+    width: 40%;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .profileText:nth-child(even) {
+    flex-wrap: wrap-reverse;
+  }
+
+  .profileText > h3 {
+    font-size: 4rem;
+    font-weight: lighter;
+    padding: 0;
+    margin: 0;
+  }
+
+  .profileText > p {
+    font-weight: 100;
+    color: #a2a2a2;
+    padding: 0;
+    font-size: 2rem;
+    font-style: italic;
+  }
+
 /*=====IMAGES======*/
 
 #Lost {

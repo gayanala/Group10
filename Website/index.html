@@ -43,9 +43,9 @@
           <a href="#theLand"> <img src="imgs/logo_Orange.svg" alt="logo"> </a>
         </div>
         <ul class="links">
-          <li><a href="#"> About Us </a></li>
-          <li><a href="#"> Methods </a></li>
-          <li><a href="#"> Contact </a></li>
+          <li><a href="pages/about.html"> About Us </a></li>
+          <li><a href="pages/methods.html"> Methods </a></li>
+          <li><a href="pages/contact.html"> Contact </a></li>
         </ul>
       </div>
       <div class="welcome">
@@ -56,7 +56,7 @@
           <div class="title">
             <h3>pro-viewer</h3>
           </div>
-          <p class="description">Here will be a description of what we are doing. We have a pretty good idea right now, but not cute enough to put into nice words yet.</p>
+          <p class="description"> Connecting viewers to satifying content and directing producers towards viewers' satisfaction trends.</p>
         </div>
       <div class="navigationItem">
         <a href="#theGut" id="pointer"><img src="imgs/navigateDown.svg" alt="navigation item"></a>
@@ -96,21 +96,6 @@
     </section>
 
 
-    <script>
-    $(function() {
-      $('a[href*="#"]:not([href="#"])').click(function() {
-        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-          var target = $(this.hash);
-          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-          if (target.length) {
-            $('html, body').animate({
-              scrollTop: target.offset().top
-            }, 1000);
-            return false;
-          }
-        }
-      });
-    });
-    </script>
+
   </body>
 </html>
